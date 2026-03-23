@@ -1,97 +1,114 @@
 ---
 title: "Introduction"
-description: "Welcome to the new home for your documentation"
+description: "Unimetacare Developer Overview"
 ---
 
-## Setting up
+## Overview
 
-Get your documentation site up and running in minutes.
+Uni Connect is a developer-friendly platform designed for healthcare integration. It helps external clients easily access our APIs, making it simple for them to onboard and authenticate users seamlessly.
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
->
-  Follow our three step quickstart guide.
-</Card>
+---
 
-## Make it yours
+## How to Get an API Key
 
-Design a docs site that looks great and empowers your users.
+To test and access Uni Connect APIs, you need an **API Key**. Here's how to obtain one:
+
+<Steps>
+  <Step title="Contact Your Healthcare Provider">
+    Reach out to your respective healthcare provider's [Workspace](https://workspace.example.com) to request an API Key. The API Key grants you access to Uni Connect APIs directly without requiring additional client credentials.
+  </Step>
+  <Step title="Receive Your API Key">
+    Once approved, you'll receive an **API Key** — a unique token tied to your account that authenticates all your API requests.
+  </Step>
+  <Step title="Use the API Key">
+    Include the API Key in the header of every API request:
+    ```bash
+    Authorization: Bearer <your_api_key>
+    ```
+  </Step>
+  <Step title="Need Help?">
+    For any issues or detailed information, reach out to us at **info@unimetacare.com**
+  </Step>
+</Steps>
+
+---
+
+## Why Choose Uni Connect?
+
+Choosing Uni Connect is a smart decision because of its strong focus on security and reliability. Here's why:
 
 <Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
+  <Card title="Security You Can Trust" icon="shield-check">
+    Uni Connect uses top-tier security measures to keep your data safe and protected at all times.
   </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
+  <Card title="Reliability You Can Count On" icon="circle-check">
+    With Uni Connect, you get a stable and dependable platform you can rely on, whether you're connecting with clients or managing important data.
   </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
+  <Card title="Fast and Efficient" icon="bolt">
+    Built for speed — data is processed quickly and communication flows smoothly so your work gets done without any slowdowns.
   </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
+  <Card title="Easy to Maintain" icon="wrench">
+    Hassle-free maintenance with regular updates and support to keep everything running smoothly, reducing downtime and keeping performance high.
   </Card>
 </Columns>
 
-## Create beautiful pages
+---
 
-Everything you need to create world-class documentation.
+## How to Get Started with Uni Connect
 
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
+### 1. Onboarding
 
-## Need inspiration?
+**Pre-requisites**
+
+- **API Key**: A unique key assigned to you by your healthcare provider's workspace that authenticates your access to Uni Connect APIs.
+
+**Obtain Your API Key**
+
+- Login to your Uni Care Control Panel at Console and generate your API Key.
+- If you are a developer looking to create an app for doctors and patients, you can ask for an API Key from your respective healthcare provider's workspace to get access.
+- For any issue or detailed info, reach out to us at **info@unimetacare.com**
+
+---
+
+### 2. Authentication
+
+Uni Connect's API authentication process ensures secure access to sensitive healthcare data using a strong and reliable system. Authentication confirms that the person or application making the request is who they claim to be.
+
+**How to Authenticate with Uni's API**
+
+<Steps>
+  <Step title="Use Your API Key">
+    Include your API Key in the authorization header of every API request. This tells Uni Connect that your app is authorized to access the data and services.
+    ```bash
+    Authorization: Bearer <your_api_key>
+    ```
+  </Step>
+  <Step title="Handle Unauthorized Errors">
+    If your API Key is invalid or expired, you'll receive a `401 Unauthorized` error. Contact your healthcare provider to renew or reissue your API Key.
+  </Step>
+</Steps>
+
+---
+
+## What Comes After Authentication?
+
+Once you've authenticated and successfully integrated with Uni Connect, you can access various features designed to support healthcare integration.
+
+### ABDM Connect
+
+**Introducing the ABDM Connector: A Comprehensive API Suite for Easy Integration.**
+
+The ABDM Connector is designed as a powerful, plug-and-play API suite that simplifies the integration of various healthcare solutions into the Ayushman Bharat Digital Mission (ABDM) ecosystem. Whether you're looking to connect Electronic Health Records (EHR), hospital management systems, or other healthcare platforms, this connector facilitates seamless interoperability.
+
+- **Full Support for All ABDM Functionalities**: Includes creating and linking Health IDs (ABHA), handling consent management, sharing health records, and much more.
+- **Flexible Infrastructure Options**: Choose between shared cloud infrastructure for rapid deployment or set up your own private cloud for greater control.
+
+Whether you are a healthcare provider, technology partner, or hospital network, the ABDM Connector ensures a smooth, compliant, and efficient integration experience with the ABDM framework, empowering you to deliver better healthcare services at scale.
 
 <Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
+  title="Explore ABDM API Reference"
+  icon="terminal"
+  href="/api-reference/introduction"
 >
-  Browse our showcase of exceptional documentation sites.
+  View the full ABDM API documentation and start integrating today.
 </Card>

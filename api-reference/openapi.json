@@ -2,37 +2,84 @@
   "openapi": "3.1.0",
   "info": {
     "title": "ABDM ABHA API",
-    "description": "Ayushman Bharat Digital Mission (ABDM) — ABHA (Ayushman Bharat Health Account) APIs for enrollment, login, care context linking, and consent management.",
+    "description": "Ayushman Bharat Digital Mission (ABDM) \u2014 ABHA (Ayushman Bharat Health Account) APIs for enrollment, login, care context linking, and consent management.",
     "version": "1.0.0"
   },
   "servers": [
     {
+      "url": "https://abdm.dev.unimetacare.com",
+      "description": "Development"
+    },
+    {
       "url": "https://abdm.unimetacare.com",
-      "description": "ABDM Server"
+      "description": "Production"
     }
   ],
   "security": [
-    { "bearerAuth": [] }
+    {
+      "bearerAuth": []
+    }
   ],
   "tags": [
-    { "name": "Authentication", "description": "Generate JWT token for API access" },
-    { "name": "M1 - Aadhaar Enrollment", "description": "Enroll and create ABHA using Aadhaar" },
-    { "name": "M1 - Profile", "description": "Fetch profile, download ABHA card, get QR code" },
-    { "name": "M1 - Mobile Login", "description": "Login using mobile number OTP" },
-    { "name": "M1 - ABHA Number Login (Aadhaar OTP)", "description": "Login with ABHA number verified via Aadhaar OTP" },
-    { "name": "M1 - ABHA Number Login (Mobile OTP)", "description": "Login with ABHA number verified via mobile OTP" },
-    { "name": "M1 - Aadhaar Number Login", "description": "Login directly with Aadhaar number OTP" },
-    { "name": "M1 - ABHA Address Login (Aadhaar OTP)", "description": "Login with ABHA address verified via Aadhaar OTP" },
-    { "name": "M1 - ABHA Address Login (Mobile OTP)", "description": "Login with ABHA address verified via mobile OTP" },
-    { "name": "M1 - Search ABHA", "description": "Search ABHA accounts by mobile number" },
-    { "name": "M2 - Deep Link", "description": "Send deep link SMS to patient" },
-    { "name": "M2 - Link CareContext", "description": "Link health records (care contexts) to ABHA" },
-    { "name": "M3 - Consent", "description": "Consent request and health record retrieval" }
+    {
+      "name": "Authentication",
+      "description": "Generate JWT token for API access"
+    },
+    {
+      "name": "M1 - Aadhaar Enrollment",
+      "description": "Enroll and create ABHA using Aadhaar"
+    },
+    {
+      "name": "M1 - Profile",
+      "description": "Fetch profile, download ABHA card, get QR code"
+    },
+    {
+      "name": "M1 - Mobile Login",
+      "description": "Login using mobile number OTP"
+    },
+    {
+      "name": "M1 - ABHA Number Login (Aadhaar OTP)",
+      "description": "Login with ABHA number verified via Aadhaar OTP"
+    },
+    {
+      "name": "M1 - ABHA Number Login (Mobile OTP)",
+      "description": "Login with ABHA number verified via mobile OTP"
+    },
+    {
+      "name": "M1 - Aadhaar Number Login",
+      "description": "Login directly with Aadhaar number OTP"
+    },
+    {
+      "name": "M1 - ABHA Address Login (Aadhaar OTP)",
+      "description": "Login with ABHA address verified via Aadhaar OTP"
+    },
+    {
+      "name": "M1 - ABHA Address Login (Mobile OTP)",
+      "description": "Login with ABHA address verified via mobile OTP"
+    },
+    {
+      "name": "M1 - Search ABHA",
+      "description": "Search ABHA accounts by mobile number"
+    },
+    {
+      "name": "M2 - Deep Link",
+      "description": "Send deep link SMS to patient"
+    },
+    {
+      "name": "M2 - Link CareContext",
+      "description": "Link health records (care contexts) to ABHA"
+    },
+    {
+      "name": "M3 - Consent",
+      "description": "Consent request and health record retrieval"
+    }
   ],
   "paths": {
     "/api/m1/abha/token": {
       "post": {
-        "tags": ["Authentication"],
+        "tags": [
+          "Authentication"
+        ],
         "summary": "Generate JWT Token",
         "description": "Exchange your API key for a JWT bearer token. This token must be passed as `Authorization: Bearer <token>` in all other API calls.",
         "operationId": "generateToken",
@@ -43,12 +90,14 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["apiKey"],
+                "required": [
+                  "apiKey"
+                ],
                 "properties": {
                   "apiKey": {
                     "type": "string",
                     "description": "Your ABDM API key",
-                    "example": "your-api-key-here"
+                    "example": "<string>"
                   }
                 }
               }
@@ -63,20 +112,45 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "status": { "type": "boolean", "example": true },
-                    "message": { "type": "string", "example": "Jwt token generated successfully" },
-                    "data": { "type": "string", "description": "JWT bearer token", "example": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9..." }
+                    "status": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "string",
+                      "description": "JWT bearer token"
+                    }
                   }
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "403": {
+            "$ref": "#/components/responses/403"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
           }
         }
       }
     },
     "/api/m1/abha/aadhar/enroll/send-otp": {
       "post": {
-        "tags": ["M1 - Aadhaar Enrollment"],
+        "tags": [
+          "M1 - Aadhaar Enrollment"
+        ],
         "summary": "Send OTP",
         "description": "Send OTP to the mobile number linked with the provided Aadhaar number. Returns a `txnId` required for the verify step.",
         "operationId": "aadhaarEnrollSendOtp",
@@ -86,12 +160,14 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["aadhaarNumber"],
+                "required": [
+                  "aadhaarNumber"
+                ],
                 "properties": {
                   "aadhaarNumber": {
                     "type": "string",
                     "description": "12-digit Aadhaar number",
-                    "example": "558963516887"
+                    "example": "<string>"
                   }
                 }
               }
@@ -103,16 +179,44 @@
             "description": "OTP sent successfully",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/OtpSentResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/OtpSentResponse"
+                }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
           }
         }
       }
     },
     "/api/m1/abha/aadhar/enroll/verify-otp": {
       "post": {
-        "tags": ["M1 - Aadhaar Enrollment"],
+        "tags": [
+          "M1 - Aadhaar Enrollment"
+        ],
         "summary": "Verify OTP",
         "description": "Verify the OTP sent to the Aadhaar-linked mobile. On success returns ABHA profile and session tokens.",
         "operationId": "aadhaarEnrollVerifyOtp",
@@ -122,11 +226,26 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["txnId", "otpValue", "mobile"],
+                "required": [
+                  "txnId",
+                  "otpValue",
+                  "mobile"
+                ],
                 "properties": {
-                  "txnId": { "type": "string", "format": "uuid", "example": "087b3f06-c2cb-43f5-a660-67bdfd7701b4" },
-                  "otpValue": { "type": "string", "description": "6-digit OTP", "example": "909463" },
-                  "mobile": { "type": "string", "description": "10-digit mobile number", "example": "9876543210" }
+                  "txnId": {
+                    "type": "string",
+                    "example": "<string>"
+                  },
+                  "otpValue": {
+                    "type": "string",
+                    "description": "6-digit OTP",
+                    "example": "<string>"
+                  },
+                  "mobile": {
+                    "type": "string",
+                    "description": "10-digit mobile number",
+                    "example": "<string>"
+                  }
                 }
               }
             }
@@ -140,28 +259,66 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": { "type": "boolean" },
-                    "message": { "type": "string" },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
                     "data": {
                       "type": "object",
                       "properties": {
-                        "txnId": { "type": "string" },
-                        "tokens": { "$ref": "#/components/schemas/AuthTokens" },
-                        "ABHAProfile": { "$ref": "#/components/schemas/ABHAProfile" },
-                        "isNew": { "type": "boolean" }
+                        "txnId": {
+                          "type": "string"
+                        },
+                        "tokens": {
+                          "$ref": "#/components/schemas/AuthTokens"
+                        },
+                        "ABHAProfile": {
+                          "$ref": "#/components/schemas/ABHAProfile"
+                        },
+                        "isNew": {
+                          "type": "boolean"
+                        }
                       }
                     }
                   }
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
           }
         }
       }
     },
     "/api/m1/abha/aadhar/enroll/abha-suggestion": {
       "post": {
-        "tags": ["M1 - Aadhaar Enrollment"],
+        "tags": [
+          "M1 - Aadhaar Enrollment"
+        ],
         "summary": "Get ABHA Address Suggestions",
         "description": "Get suggested ABHA address options for the user to choose from after OTP verification.",
         "operationId": "aadhaarEnrollAbhaSuggestion",
@@ -171,9 +328,14 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["txnId"],
+                "required": [
+                  "txnId"
+                ],
                 "properties": {
-                  "txnId": { "type": "string", "format": "uuid", "example": "087b3f06-c2cb-43f5-a660-67bdfd7701b4" }
+                  "txnId": {
+                    "type": "string",
+                    "example": "<string>"
+                  }
                 }
               }
             }
@@ -187,26 +349,63 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": { "type": "boolean" },
-                    "message": { "type": "string" },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
                     "data": {
                       "type": "object",
                       "properties": {
-                        "txnId": { "type": "string" },
-                        "abhaAddressList": { "type": "array", "items": { "type": "string" } }
+                        "txnId": {
+                          "type": "string"
+                        },
+                        "abhaAddressList": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
                       }
                     }
                   }
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
           }
         }
       }
     },
     "/api/m1/abha/aadhar/enroll/create/abha-address": {
       "post": {
-        "tags": ["M1 - Aadhaar Enrollment"],
+        "tags": [
+          "M1 - Aadhaar Enrollment"
+        ],
         "summary": "Create ABHA Address",
         "description": "Create the final ABHA address for the user from the suggested list.",
         "operationId": "aadhaarEnrollCreateAbhaAddress",
@@ -216,11 +415,24 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["txnId", "abhaAddress", "preferred"],
+                "required": [
+                  "txnId",
+                  "abhaAddress",
+                  "preferred"
+                ],
                 "properties": {
-                  "txnId": { "type": "string", "format": "uuid", "example": "087b3f06-c2cb-43f5-a660-67bdfd7701b4" },
-                  "abhaAddress": { "type": "string", "example": "username@sbx" },
-                  "preferred": { "type": "integer", "example": 1 }
+                  "txnId": {
+                    "type": "string",
+                    "example": "<string>"
+                  },
+                  "abhaAddress": {
+                    "type": "string",
+                    "example": "<string>"
+                  },
+                  "preferred": {
+                    "type": "integer",
+                    "example": 1
+                  }
                 }
               }
             }
@@ -234,27 +446,63 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": { "type": "boolean" },
-                    "message": { "type": "string" },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
                     "data": {
                       "type": "object",
                       "properties": {
-                        "txnId": { "type": "string" },
-                        "healthIdNumber": { "type": "string", "example": "12-3456-7890-1234" },
-                        "preferredAbhaAddress": { "type": "string", "example": "username@sbx" }
+                        "txnId": {
+                          "type": "string"
+                        },
+                        "healthIdNumber": {
+                          "type": "string"
+                        },
+                        "preferredAbhaAddress": {
+                          "type": "string"
+                        }
                       }
                     }
                   }
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
           }
         }
       }
     },
     "/api/m1/abha/aadhar/enroll/email-verification": {
       "post": {
-        "tags": ["M1 - Aadhaar Enrollment"],
+        "tags": [
+          "M1 - Aadhaar Enrollment"
+        ],
         "summary": "Email Verification",
         "description": "Send email verification link to the user's email address.",
         "operationId": "aadhaarEnrollEmailVerification",
@@ -264,23 +512,61 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["email", "token"],
+                "required": [
+                  "email",
+                  "token"
+                ],
                 "properties": {
-                  "email": { "type": "string", "format": "email", "example": "user@example.com" },
-                  "token": { "type": "string", "description": "ABHA session JWT token" }
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "user@example.com"
+                  },
+                  "token": {
+                    "type": "string",
+                    "description": "ABHA session JWT token"
+                  }
                 }
               }
             }
           }
         },
         "responses": {
-          "200": { "description": "Email verification sent" }
+          "200": {
+            "description": "Email verification sent"
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          }
         }
       }
     },
     "/api/m1/abha/login/get-profile": {
       "post": {
-        "tags": ["M1 - Profile"],
+        "tags": [
+          "M1 - Profile"
+        ],
         "summary": "Get Profile",
         "description": "Fetch the complete ABHA profile for a user using their session token.",
         "operationId": "getProfile",
@@ -290,9 +576,14 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["token"],
+                "required": [
+                  "token"
+                ],
                 "properties": {
-                  "token": { "type": "string", "description": "ABHA session JWT token" }
+                  "token": {
+                    "type": "string",
+                    "description": "ABHA session JWT token"
+                  }
                 }
               }
             }
@@ -306,20 +597,52 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": { "type": "boolean" },
-                    "message": { "type": "string" },
-                    "data": { "$ref": "#/components/schemas/FullABHAProfile" }
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/FullABHAProfile"
+                    }
                   }
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
           }
         }
       }
     },
     "/api/m1/abha/login/download": {
       "post": {
-        "tags": ["M1 - Profile"],
+        "tags": [
+          "M1 - Profile"
+        ],
         "summary": "Download ABHA Card",
         "description": "Download the ABHA health card as a base64-encoded image/PDF.",
         "operationId": "downloadAbhaCard",
@@ -329,9 +652,14 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["token"],
+                "required": [
+                  "token"
+                ],
                 "properties": {
-                  "token": { "type": "string", "description": "ABHA session JWT token" }
+                  "token": {
+                    "type": "string",
+                    "description": "ABHA session JWT token"
+                  }
                 }
               }
             }
@@ -345,20 +673,53 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": { "type": "boolean" },
-                    "message": { "type": "string" },
-                    "data": { "type": "string", "description": "Base64 encoded card image/PDF" }
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "string",
+                      "description": "Base64 encoded card image/PDF"
+                    }
                   }
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
           }
         }
       }
     },
     "/api/m1/abha/login/qr-code": {
       "post": {
-        "tags": ["M1 - Profile"],
+        "tags": [
+          "M1 - Profile"
+        ],
         "summary": "Get QR Code",
         "description": "Get the ABHA QR code as a base64-encoded image.",
         "operationId": "getQrCode",
@@ -368,9 +729,14 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["token"],
+                "required": [
+                  "token"
+                ],
                 "properties": {
-                  "token": { "type": "string", "description": "ABHA session JWT token" }
+                  "token": {
+                    "type": "string",
+                    "description": "ABHA session JWT token"
+                  }
                 }
               }
             }
@@ -384,20 +750,53 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": { "type": "boolean" },
-                    "message": { "type": "string" },
-                    "data": { "type": "string", "description": "Base64 encoded QR code image" }
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "string",
+                      "description": "Base64 encoded QR code image"
+                    }
                   }
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
           }
         }
       }
     },
     "/api/m1/abha/mobile/login/send-otp": {
       "post": {
-        "tags": ["M1 - Mobile Login"],
+        "tags": [
+          "M1 - Mobile Login"
+        ],
         "summary": "Send OTP",
         "description": "Send OTP to the provided mobile number. Returns a `txnId` for the verify step.",
         "operationId": "mobileLoginSendOtp",
@@ -407,9 +806,15 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["mobile"],
+                "required": [
+                  "mobile"
+                ],
                 "properties": {
-                  "mobile": { "type": "string", "description": "10-digit mobile number", "example": "9876543210" }
+                  "mobile": {
+                    "type": "string",
+                    "description": "10-digit mobile number",
+                    "example": "<string>"
+                  }
                 }
               }
             }
@@ -420,16 +825,44 @@
             "description": "OTP sent successfully",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/OtpSentResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/OtpSentResponse"
+                }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
           }
         }
       }
     },
     "/api/m1/abha/mobile/login/verify-otp": {
       "post": {
-        "tags": ["M1 - Mobile Login"],
+        "tags": [
+          "M1 - Mobile Login"
+        ],
         "summary": "Verify OTP",
         "description": "Verify the OTP. On success returns a list of ABHA accounts linked to the mobile number.",
         "operationId": "mobileLoginVerifyOtp",
@@ -439,10 +872,19 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["txnId", "otp"],
+                "required": [
+                  "txnId",
+                  "otp"
+                ],
                 "properties": {
-                  "txnId": { "type": "string", "format": "uuid" },
-                  "otp": { "type": "string", "description": "6-digit OTP", "example": "123456" }
+                  "txnId": {
+                    "type": "string"
+                  },
+                  "otp": {
+                    "type": "string",
+                    "description": "6-digit OTP",
+                    "example": "<string>"
+                  }
                 }
               }
             }
@@ -456,18 +898,33 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": { "type": "boolean" },
-                    "message": { "type": "string" },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
                     "data": {
                       "type": "object",
                       "properties": {
-                        "txnId": { "type": "string" },
-                        "authResult": { "type": "string", "example": "success" },
-                        "token": { "type": "string" },
-                        "expiresIn": { "type": "integer", "example": 300 },
+                        "txnId": {
+                          "type": "string"
+                        },
+                        "authResult": {
+                          "type": "string"
+                        },
+                        "token": {
+                          "type": "string"
+                        },
+                        "expiresIn": {
+                          "type": "integer",
+                          "example": 300
+                        },
                         "accounts": {
                           "type": "array",
-                          "items": { "$ref": "#/components/schemas/AccountSummary" }
+                          "items": {
+                            "$ref": "#/components/schemas/AccountSummary"
+                          }
                         }
                       }
                     }
@@ -475,13 +932,39 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
           }
         }
       }
     },
     "/api/m1/abha/mobile/login/verify-user": {
       "post": {
-        "tags": ["M1 - Mobile Login"],
+        "tags": [
+          "M1 - Mobile Login"
+        ],
         "summary": "Verify User (Select Account)",
         "description": "Select a specific ABHA account from the list returned by verify-otp. Returns final session tokens.",
         "operationId": "mobileLoginVerifyUser",
@@ -491,11 +974,24 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["txnId", "abhaNumber", "token"],
+                "required": [
+                  "txnId",
+                  "abhaNumber",
+                  "token"
+                ],
                 "properties": {
-                  "txnId": { "type": "string", "format": "uuid" },
-                  "abhaNumber": { "type": "string", "description": "ABHA number in XX-XXXX-XXXX-XXXX format", "example": "12-3456-7890-1234" },
-                  "token": { "type": "string", "description": "JWT token from verify-otp step" }
+                  "txnId": {
+                    "type": "string"
+                  },
+                  "abhaNumber": {
+                    "type": "string",
+                    "description": "ABHA number in XX-XXXX-XXXX-XXXX format",
+                    "example": "<string>"
+                  },
+                  "token": {
+                    "type": "string",
+                    "description": "JWT token from verify-otp step"
+                  }
                 }
               }
             }
@@ -509,20 +1005,52 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": { "type": "boolean" },
-                    "message": { "type": "string" },
-                    "data": { "$ref": "#/components/schemas/AuthTokens" }
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/AuthTokens"
+                    }
                   }
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
           }
         }
       }
     },
     "/api/m1/abha/aadhar/login/abha-number/send-otp": {
       "post": {
-        "tags": ["M1 - ABHA Number Login (Aadhaar OTP)"],
+        "tags": [
+          "M1 - ABHA Number Login (Aadhaar OTP)"
+        ],
         "summary": "Send OTP",
         "description": "Send OTP to the Aadhaar-linked mobile for login using ABHA number.",
         "operationId": "abhaNumberAadhaarSendOtp",
@@ -532,9 +1060,14 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["abhaNumber"],
+                "required": [
+                  "abhaNumber"
+                ],
                 "properties": {
-                  "abhaNumber": { "type": "string", "example": "12-3456-7890-1234" }
+                  "abhaNumber": {
+                    "type": "string",
+                    "example": "<string>"
+                  }
                 }
               }
             }
@@ -545,16 +1078,44 @@
             "description": "OTP sent",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/OtpSentResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/OtpSentResponse"
+                }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
           }
         }
       }
     },
     "/api/m1/abha/aadhar/login/abha-number/verify-otp": {
       "post": {
-        "tags": ["M1 - ABHA Number Login (Aadhaar OTP)"],
+        "tags": [
+          "M1 - ABHA Number Login (Aadhaar OTP)"
+        ],
         "summary": "Verify OTP",
         "description": "Verify the Aadhaar OTP to complete ABHA number login.",
         "operationId": "abhaNumberAadhaarVerifyOtp",
@@ -564,23 +1125,60 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["txnId", "otp"],
+                "required": [
+                  "txnId",
+                  "otp"
+                ],
                 "properties": {
-                  "txnId": { "type": "string", "format": "uuid" },
-                  "otp": { "type": "string", "description": "6-digit OTP", "example": "123456" }
+                  "txnId": {
+                    "type": "string"
+                  },
+                  "otp": {
+                    "type": "string",
+                    "description": "6-digit OTP",
+                    "example": "<string>"
+                  }
                 }
               }
             }
           }
         },
         "responses": {
-          "200": { "description": "OTP verified" }
+          "200": {
+            "description": "OTP verified"
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          }
         }
       }
     },
     "/api/m1/abha/mobile/login/abha-number/send-otp": {
       "post": {
-        "tags": ["M1 - ABHA Number Login (Mobile OTP)"],
+        "tags": [
+          "M1 - ABHA Number Login (Mobile OTP)"
+        ],
         "summary": "Send OTP",
         "description": "Send OTP to the mobile number for login using ABHA number.",
         "operationId": "abhaNumberMobileSendOtp",
@@ -590,9 +1188,14 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["abhaNumber"],
+                "required": [
+                  "abhaNumber"
+                ],
                 "properties": {
-                  "abhaNumber": { "type": "string", "example": "12-3456-7890-1234" }
+                  "abhaNumber": {
+                    "type": "string",
+                    "example": "<string>"
+                  }
                 }
               }
             }
@@ -603,16 +1206,44 @@
             "description": "OTP sent",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/OtpSentResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/OtpSentResponse"
+                }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
           }
         }
       }
     },
     "/api/m1/abha/mobile/login/abha-number/verify-otp": {
       "post": {
-        "tags": ["M1 - ABHA Number Login (Mobile OTP)"],
+        "tags": [
+          "M1 - ABHA Number Login (Mobile OTP)"
+        ],
         "summary": "Verify OTP",
         "description": "Verify the mobile OTP to complete ABHA number login.",
         "operationId": "abhaNumberMobileVerifyOtp",
@@ -622,10 +1253,19 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["txnId", "otp"],
+                "required": [
+                  "txnId",
+                  "otp"
+                ],
                 "properties": {
-                  "txnId": { "type": "string", "format": "uuid" },
-                  "otp": { "type": "string", "description": "6-digit OTP", "example": "123456" }
+                  "txnId": {
+                    "type": "string"
+                  },
+                  "otp": {
+                    "type": "string",
+                    "description": "6-digit OTP",
+                    "example": "<string>"
+                  }
                 }
               }
             }
@@ -639,27 +1279,66 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": { "type": "boolean" },
-                    "message": { "type": "string" },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
                     "data": {
                       "type": "object",
                       "properties": {
-                        "txnId": { "type": "string" },
-                        "authResult": { "type": "string", "example": "success" },
-                        "accounts": { "type": "array", "items": { "$ref": "#/components/schemas/AccountSummary" } }
+                        "txnId": {
+                          "type": "string"
+                        },
+                        "authResult": {
+                          "type": "string"
+                        },
+                        "accounts": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/AccountSummary"
+                          }
+                        }
                       }
                     }
                   }
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
           }
         }
       }
     },
     "/api/m1/abha/aadhar-number/login/send-otp": {
       "post": {
-        "tags": ["M1 - Aadhaar Number Login"],
+        "tags": [
+          "M1 - Aadhaar Number Login"
+        ],
         "summary": "Send OTP",
         "description": "Send OTP to the Aadhaar-linked mobile number for login using Aadhaar number.",
         "operationId": "aadhaarNumberLoginSendOtp",
@@ -669,9 +1348,15 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["aadhaarNumber"],
+                "required": [
+                  "aadhaarNumber"
+                ],
                 "properties": {
-                  "aadhaarNumber": { "type": "string", "description": "12-digit Aadhaar number", "example": "558963516887" }
+                  "aadhaarNumber": {
+                    "type": "string",
+                    "description": "12-digit Aadhaar number",
+                    "example": "<string>"
+                  }
                 }
               }
             }
@@ -682,16 +1367,44 @@
             "description": "OTP sent",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/OtpSentResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/OtpSentResponse"
+                }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
           }
         }
       }
     },
     "/api/m1/abha/aadhar-number/login/verify-otp": {
       "post": {
-        "tags": ["M1 - Aadhaar Number Login"],
+        "tags": [
+          "M1 - Aadhaar Number Login"
+        ],
         "summary": "Verify OTP",
         "description": "Verify the OTP and login. Returns ABHA accounts linked to the Aadhaar.",
         "operationId": "aadhaarNumberLoginVerifyOtp",
@@ -701,11 +1414,25 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["txnId", "otpValue", "mobile"],
+                "required": [
+                  "txnId",
+                  "otpValue",
+                  "mobile"
+                ],
                 "properties": {
-                  "txnId": { "type": "string", "format": "uuid" },
-                  "otpValue": { "type": "string", "description": "6-digit OTP", "example": "123456" },
-                  "mobile": { "type": "string", "description": "10-digit mobile number", "example": "9876543210" }
+                  "txnId": {
+                    "type": "string"
+                  },
+                  "otpValue": {
+                    "type": "string",
+                    "description": "6-digit OTP",
+                    "example": "<string>"
+                  },
+                  "mobile": {
+                    "type": "string",
+                    "description": "10-digit mobile number",
+                    "example": "<string>"
+                  }
                 }
               }
             }
@@ -719,31 +1446,78 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": { "type": "boolean" },
-                    "message": { "type": "string" },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
                     "data": {
                       "type": "object",
                       "properties": {
-                        "txnId": { "type": "string" },
-                        "authResult": { "type": "string" },
-                        "token": { "type": "string" },
-                        "expiresIn": { "type": "integer" },
-                        "refreshToken": { "type": "string" },
-                        "refreshExpiresIn": { "type": "integer" },
-                        "accounts": { "type": "array", "items": { "$ref": "#/components/schemas/AccountSummary" } }
+                        "txnId": {
+                          "type": "string"
+                        },
+                        "authResult": {
+                          "type": "string"
+                        },
+                        "token": {
+                          "type": "string"
+                        },
+                        "expiresIn": {
+                          "type": "integer"
+                        },
+                        "refreshToken": {
+                          "type": "string"
+                        },
+                        "refreshExpiresIn": {
+                          "type": "integer"
+                        },
+                        "accounts": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/AccountSummary"
+                          }
+                        }
                       }
                     }
                   }
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
           }
         }
       }
     },
     "/api/m1/abha/aadhar/login/abha-address/send-otp": {
       "post": {
-        "tags": ["M1 - ABHA Address Login (Aadhaar OTP)"],
+        "tags": [
+          "M1 - ABHA Address Login (Aadhaar OTP)"
+        ],
         "summary": "Send OTP",
         "description": "Send OTP to the Aadhaar-linked mobile for login using ABHA address.",
         "operationId": "abhaAddressAadhaarSendOtp",
@@ -753,9 +1527,14 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["abhaAddress"],
+                "required": [
+                  "abhaAddress"
+                ],
                 "properties": {
-                  "abhaAddress": { "type": "string", "example": "username@sbx" }
+                  "abhaAddress": {
+                    "type": "string",
+                    "example": "<string>"
+                  }
                 }
               }
             }
@@ -766,16 +1545,44 @@
             "description": "OTP sent",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/OtpSentResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/OtpSentResponse"
+                }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
           }
         }
       }
     },
     "/api/m1/abha/aadhar/login/abha-address/verify-otp": {
       "post": {
-        "tags": ["M1 - ABHA Address Login (Aadhaar OTP)"],
+        "tags": [
+          "M1 - ABHA Address Login (Aadhaar OTP)"
+        ],
         "summary": "Verify OTP",
         "description": "Verify the Aadhaar OTP to complete ABHA address login. Returns user list and session tokens.",
         "operationId": "abhaAddressAadhaarVerifyOtp",
@@ -785,11 +1592,23 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["txnId", "otpValue", "mobile"],
+                "required": [
+                  "txnId",
+                  "otpValue",
+                  "mobile"
+                ],
                 "properties": {
-                  "txnId": { "type": "string", "format": "uuid" },
-                  "otpValue": { "type": "string", "example": "123456" },
-                  "mobile": { "type": "string", "example": "9876543210" }
+                  "txnId": {
+                    "type": "string"
+                  },
+                  "otpValue": {
+                    "type": "string",
+                    "example": "<string>"
+                  },
+                  "mobile": {
+                    "type": "string",
+                    "example": "<string>"
+                  }
                 }
               }
             }
@@ -800,16 +1619,45 @@
             "description": "OTP verified. Returns users and tokens.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/AbhaAddressVerifyResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/AbhaAddressVerifyResponse"
+                }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
           }
         }
       }
     },
     "/api/m1/abha/aadhar/login/abha-address/fetch/profile": {
       "post": {
-        "tags": ["M1 - ABHA Address Login (Aadhaar OTP)", "M1 - ABHA Address Login (Mobile OTP)"],
+        "tags": [
+          "M1 - ABHA Address Login (Aadhaar OTP)",
+          "M1 - ABHA Address Login (Mobile OTP)"
+        ],
         "summary": "Fetch Profile",
         "description": "Fetch the ABHA address profile using the session token from the verify-otp step.",
         "operationId": "abhaAddressFetchProfile",
@@ -819,9 +1667,14 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["token"],
+                "required": [
+                  "token"
+                ],
                 "properties": {
-                  "token": { "type": "string", "description": "JWT token from verify-otp step" }
+                  "token": {
+                    "type": "string",
+                    "description": "JWT token from verify-otp step"
+                  }
                 }
               }
             }
@@ -835,20 +1688,52 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": { "type": "boolean" },
-                    "message": { "type": "string" },
-                    "data": { "$ref": "#/components/schemas/AbhaAddressProfile" }
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/AbhaAddressProfile"
+                    }
                   }
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
           }
         }
       }
     },
     "/api/m1/abha/mobile/login/abha-address/send-otp": {
       "post": {
-        "tags": ["M1 - ABHA Address Login (Mobile OTP)"],
+        "tags": [
+          "M1 - ABHA Address Login (Mobile OTP)"
+        ],
         "summary": "Send OTP",
         "description": "Send OTP to the mobile number for login using ABHA address.",
         "operationId": "abhaAddressMobileSendOtp",
@@ -858,9 +1743,14 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["abhaAddress"],
+                "required": [
+                  "abhaAddress"
+                ],
                 "properties": {
-                  "abhaAddress": { "type": "string", "example": "username@sbx" }
+                  "abhaAddress": {
+                    "type": "string",
+                    "example": "<string>"
+                  }
                 }
               }
             }
@@ -871,16 +1761,44 @@
             "description": "OTP sent",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/OtpSentResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/OtpSentResponse"
+                }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
           }
         }
       }
     },
     "/api/m1/abha/mobile/login/abha-address/verify-otp": {
       "post": {
-        "tags": ["M1 - ABHA Address Login (Mobile OTP)"],
+        "tags": [
+          "M1 - ABHA Address Login (Mobile OTP)"
+        ],
         "summary": "Verify OTP",
         "description": "Verify the mobile OTP to complete ABHA address login. Returns user list and session tokens.",
         "operationId": "abhaAddressMobileVerifyOtp",
@@ -890,11 +1808,23 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["txnId", "otpValue", "mobile"],
+                "required": [
+                  "txnId",
+                  "otpValue",
+                  "mobile"
+                ],
                 "properties": {
-                  "txnId": { "type": "string", "format": "uuid" },
-                  "otpValue": { "type": "string", "example": "123456" },
-                  "mobile": { "type": "string", "example": "9876543210" }
+                  "txnId": {
+                    "type": "string"
+                  },
+                  "otpValue": {
+                    "type": "string",
+                    "example": "<string>"
+                  },
+                  "mobile": {
+                    "type": "string",
+                    "example": "<string>"
+                  }
                 }
               }
             }
@@ -905,16 +1835,44 @@
             "description": "OTP verified. Returns users and tokens.",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/AbhaAddressVerifyResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/AbhaAddressVerifyResponse"
+                }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
           }
         }
       }
     },
     "/api/m1/abha/search/abha": {
       "post": {
-        "tags": ["M1 - Search ABHA"],
+        "tags": [
+          "M1 - Search ABHA"
+        ],
         "summary": "Search ABHA by Mobile",
         "description": "Search for ABHA accounts linked to a mobile number. Returns a masked list of matching accounts.",
         "operationId": "searchAbha",
@@ -924,9 +1882,15 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["mobile"],
+                "required": [
+                  "mobile"
+                ],
                 "properties": {
-                  "mobile": { "type": "string", "description": "10-digit mobile number", "example": "9876543210" }
+                  "mobile": {
+                    "type": "string",
+                    "description": "10-digit mobile number",
+                    "example": "<string>"
+                  }
                 }
               }
             }
@@ -940,25 +1904,51 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": { "type": "boolean" },
-                    "message": { "type": "string" },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
                     "data": {
                       "type": "array",
                       "items": {
                         "type": "object",
                         "properties": {
-                          "txnId": { "type": "string" },
+                          "txnId": {
+                            "type": "string"
+                          },
                           "ABHA": {
                             "type": "array",
                             "items": {
                               "type": "object",
                               "properties": {
-                                "index": { "type": "integer" },
-                                "ABHANumber": { "type": "string", "example": "xx-xxxx-xxxx-1234" },
-                                "name": { "type": "string" },
-                                "gender": { "type": "string", "enum": ["M", "F", "O"] },
-                                "kycVerified": { "type": "string" },
-                                "authMethods": { "type": "array", "items": { "type": "string" } }
+                                "index": {
+                                  "type": "integer"
+                                },
+                                "ABHANumber": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "gender": {
+                                  "type": "string",
+                                  "enum": [
+                                    "M",
+                                    "F",
+                                    "O"
+                                  ]
+                                },
+                                "kycVerified": {
+                                  "type": "string"
+                                },
+                                "authMethods": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
                               }
                             }
                           }
@@ -969,13 +1959,39 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
           }
         }
       }
     },
     "/api/m1/abha/search/request/otp": {
       "post": {
-        "tags": ["M1 - Search ABHA"],
+        "tags": [
+          "M1 - Search ABHA"
+        ],
         "summary": "Send OTP",
         "description": "Send OTP to the selected ABHA account's mobile number for verification.",
         "operationId": "searchAbhaSendOtp",
@@ -985,13 +2001,41 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["scope", "loginHint", "otpSystem", "loginId", "txnId"],
+                "required": [
+                  "scope",
+                  "loginHint",
+                  "otpSystem",
+                  "loginId",
+                  "txnId"
+                ],
                 "properties": {
-                  "scope": { "type": "array", "items": { "type": "string" }, "example": ["abha-login", "abha-enrol"] },
-                  "loginHint": { "type": "string", "example": "index" },
-                  "otpSystem": { "type": "string", "example": "abdm" },
-                  "loginId": { "type": "string", "description": "Index number from search result", "example": "1" },
-                  "txnId": { "type": "string", "format": "uuid", "description": "txnId from search step" }
+                  "scope": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": [
+                      "abha-login",
+                      "abha-enrol"
+                    ]
+                  },
+                  "loginHint": {
+                    "type": "string",
+                    "example": "<string>"
+                  },
+                  "otpSystem": {
+                    "type": "string",
+                    "example": "<string>"
+                  },
+                  "loginId": {
+                    "type": "string",
+                    "description": "Index number from search result",
+                    "example": "<string>"
+                  },
+                  "txnId": {
+                    "type": "string",
+                    "description": "txnId from search step"
+                  }
                 }
               }
             }
@@ -1002,16 +2046,44 @@
             "description": "OTP sent",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/OtpSentResponse" }
+                "schema": {
+                  "$ref": "#/components/schemas/OtpSentResponse"
+                }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
           }
         }
       }
     },
     "/api/m1/abha/search/verify/otp": {
       "post": {
-        "tags": ["M1 - Search ABHA"],
+        "tags": [
+          "M1 - Search ABHA"
+        ],
         "summary": "Verify OTP",
         "description": "Verify the OTP to authenticate the selected ABHA account. Returns session tokens.",
         "operationId": "searchAbhaVerifyOtp",
@@ -1021,11 +2093,29 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["scope", "txnId", "otp"],
+                "required": [
+                  "scope",
+                  "txnId",
+                  "otp"
+                ],
                 "properties": {
-                  "scope": { "type": "array", "items": { "type": "string" }, "example": ["abha-login", "abha-enrol"] },
-                  "txnId": { "type": "string", "format": "uuid" },
-                  "otp": { "type": "string", "example": "123456" }
+                  "scope": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": [
+                      "abha-login",
+                      "abha-enrol"
+                    ]
+                  },
+                  "txnId": {
+                    "type": "string"
+                  },
+                  "otp": {
+                    "type": "string",
+                    "example": "<string>"
+                  }
                 }
               }
             }
@@ -1039,31 +2129,78 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": { "type": "boolean" },
-                    "message": { "type": "string" },
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
                     "data": {
                       "type": "object",
                       "properties": {
-                        "txnId": { "type": "string" },
-                        "authResult": { "type": "string" },
-                        "token": { "type": "string" },
-                        "expiresIn": { "type": "integer" },
-                        "refreshToken": { "type": "string" },
-                        "refreshExpiresIn": { "type": "integer" },
-                        "accounts": { "type": "array", "items": { "$ref": "#/components/schemas/AccountSummary" } }
+                        "txnId": {
+                          "type": "string"
+                        },
+                        "authResult": {
+                          "type": "string"
+                        },
+                        "token": {
+                          "type": "string"
+                        },
+                        "expiresIn": {
+                          "type": "integer"
+                        },
+                        "refreshToken": {
+                          "type": "string"
+                        },
+                        "refreshExpiresIn": {
+                          "type": "integer"
+                        },
+                        "accounts": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/AccountSummary"
+                          }
+                        }
                       }
                     }
                   }
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
           }
         }
       }
     },
     "/api/m2/link/deep-link": {
       "post": {
-        "tags": ["M2 - Deep Link"],
+        "tags": [
+          "M2 - Deep Link"
+        ],
         "summary": "Request Deep Link SMS",
         "description": "Send a deep link SMS to the patient's ABHA-registered mobile to install or open the ABHA app.",
         "operationId": "requestDeepLink",
@@ -1073,24 +2210,67 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["abhaAddress", "hipId", "hipName"],
+                "required": [
+                  "abhaAddress",
+                  "hipId",
+                  "hipName"
+                ],
                 "properties": {
-                  "abhaAddress": { "type": "string", "example": "patient@sbx" },
-                  "hipId": { "type": "string", "description": "HIP facility ID", "example": "HIP001" },
-                  "hipName": { "type": "string", "description": "Hospital name", "example": "City General Hospital" }
+                  "abhaAddress": {
+                    "type": "string",
+                    "example": "<string>"
+                  },
+                  "hipId": {
+                    "type": "string",
+                    "description": "HIP facility ID",
+                    "example": "<string>"
+                  },
+                  "hipName": {
+                    "type": "string",
+                    "description": "Hospital name",
+                    "example": "<string>"
+                  }
                 }
               }
             }
           }
         },
         "responses": {
-          "200": { "description": "Deep link SMS sent successfully" }
+          "200": {
+            "description": "Deep link SMS sent successfully"
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          }
         }
       }
     },
     "/api/m2/link/token-generate": {
       "post": {
-        "tags": ["M2 - Link CareContext"],
+        "tags": [
+          "M2 - Link CareContext"
+        ],
         "summary": "Generate Link Token",
         "description": "Generate a link token for a given ABHA address and HIP. This token is required before linking care contexts.",
         "operationId": "generateLinkToken",
@@ -1100,23 +2280,60 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["abhaAddress", "hipId"],
+                "required": [
+                  "abhaAddress",
+                  "hipId"
+                ],
                 "properties": {
-                  "abhaAddress": { "type": "string", "example": "patient@sbx" },
-                  "hipId": { "type": "string", "example": "HIP001" }
+                  "abhaAddress": {
+                    "type": "string",
+                    "example": "<string>"
+                  },
+                  "hipId": {
+                    "type": "string",
+                    "example": "<string>"
+                  }
                 }
               }
             }
           }
         },
         "responses": {
-          "200": { "description": "Link token generated" }
+          "200": {
+            "description": "Link token generated"
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          }
         }
       }
     },
     "/api/m2/multiple/link-carecontext": {
       "post": {
-        "tags": ["M2 - Link CareContext"],
+        "tags": [
+          "M2 - Link CareContext"
+        ],
         "summary": "Link CareContext",
         "description": "Link one or more health records (care contexts) to the patient's ABHA. Supports the following `hiType` values: `Prescription`, `OPConsultation`, `DiagnosticReport`, `ImmunizationRecord`, `HealthDocumentRecord`, `DischargeSummary`, `Invoice`, `WellnessRecord`.",
         "operationId": "linkCareContext",
@@ -1126,24 +2343,67 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["abhaAddress", "hipId", "hospitalName", "visitDate", "visitId", "careContexts"],
+                "required": [
+                  "abhaAddress",
+                  "hipId",
+                  "hospitalName",
+                  "visitDate",
+                  "visitId",
+                  "careContexts"
+                ],
                 "properties": {
-                  "abhaAddress": { "type": "string", "example": "patient@sbx" },
-                  "hipId": { "type": "string", "example": "HIP001" },
-                  "hospitalName": { "type": "string", "example": "City General Hospital" },
-                  "visitDate": { "type": "string", "format": "date", "example": "2026-03-23" },
-                  "visitId": { "type": "string", "example": "VISIT-001" },
+                  "abhaAddress": {
+                    "type": "string",
+                    "example": "<string>"
+                  },
+                  "hipId": {
+                    "type": "string",
+                    "example": "<string>"
+                  },
+                  "hospitalName": {
+                    "type": "string",
+                    "example": "<string>"
+                  },
+                  "visitDate": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "2026-03-23"
+                  },
+                  "visitId": {
+                    "type": "string",
+                    "example": "<string>"
+                  },
                   "careContexts": {
                     "type": "array",
                     "items": {
                       "type": "object",
-                      "required": ["referenceNumber", "display", "hiType", "bundleData"],
+                      "required": [
+                        "referenceNumber",
+                        "display",
+                        "hiType",
+                        "bundleData"
+                      ],
                       "properties": {
-                        "referenceNumber": { "type": "string", "example": "REF-001" },
-                        "display": { "type": "string", "example": "Prescription - 23 Mar 2026" },
+                        "referenceNumber": {
+                          "type": "string",
+                          "example": "<string>"
+                        },
+                        "display": {
+                          "type": "string",
+                          "example": "<string>"
+                        },
                         "hiType": {
                           "type": "string",
-                          "enum": ["Prescription", "OPConsultation", "DiagnosticReport", "ImmunizationRecord", "HealthDocumentRecord", "DischargeSummary", "Invoice", "WellnessRecord"],
+                          "enum": [
+                            "Prescription",
+                            "OPConsultation",
+                            "DiagnosticReport",
+                            "ImmunizationRecord",
+                            "HealthDocumentRecord",
+                            "DischargeSummary",
+                            "Invoice",
+                            "WellnessRecord"
+                          ],
                           "example": "Prescription"
                         },
                         "bundleData": {
@@ -1153,29 +2413,57 @@
                             "hospital": {
                               "type": "object",
                               "properties": {
-                                "name": { "type": "string" },
-                                "id": { "type": "string", "description": "HFR ID" },
-                                "phone": { "type": "string" },
-                                "email": { "type": "string" }
+                                "name": {
+                                  "type": "string"
+                                },
+                                "id": {
+                                  "type": "string",
+                                  "description": "HFR ID"
+                                },
+                                "phone": {
+                                  "type": "string"
+                                },
+                                "email": {
+                                  "type": "string"
+                                }
                               }
                             },
                             "doctor": {
                               "type": "object",
                               "properties": {
-                                "name": { "type": "string" },
-                                "licNumber": { "type": "string" },
-                                "hpId": { "type": "string" }
+                                "name": {
+                                  "type": "string"
+                                },
+                                "licNumber": {
+                                  "type": "string"
+                                },
+                                "hpId": {
+                                  "type": "string"
+                                }
                               }
                             },
-                            "documentUrl": { "type": "string", "description": "URL to the document" },
+                            "documentUrl": {
+                              "type": "string",
+                              "description": "URL to the document"
+                            },
                             "diagnosis": {
                               "type": "array",
                               "items": {
                                 "type": "object",
                                 "properties": {
-                                  "diagnosisName": { "type": "string" },
-                                  "status": { "type": "string", "enum": ["confirmed", "suspected"] },
-                                  "icdCode": { "type": "string" }
+                                  "diagnosisName": {
+                                    "type": "string"
+                                  },
+                                  "status": {
+                                    "type": "string",
+                                    "enum": [
+                                      "confirmed",
+                                      "suspected"
+                                    ]
+                                  },
+                                  "icdCode": {
+                                    "type": "string"
+                                  }
                                 }
                               }
                             },
@@ -1184,11 +2472,21 @@
                               "items": {
                                 "type": "object",
                                 "properties": {
-                                  "drugName": { "type": "string" },
-                                  "dosage": { "type": "string" },
-                                  "frequency": { "type": "string" },
-                                  "duration": { "type": "string" },
-                                  "instructions": { "type": "string" }
+                                  "drugName": {
+                                    "type": "string"
+                                  },
+                                  "dosage": {
+                                    "type": "string"
+                                  },
+                                  "frequency": {
+                                    "type": "string"
+                                  },
+                                  "duration": {
+                                    "type": "string"
+                                  },
+                                  "instructions": {
+                                    "type": "string"
+                                  }
                                 }
                               }
                             },
@@ -1197,9 +2495,15 @@
                               "items": {
                                 "type": "object",
                                 "properties": {
-                                  "name": { "type": "string" },
-                                  "value": { "type": "number" },
-                                  "unit": { "type": "string" }
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "value": {
+                                    "type": "number"
+                                  },
+                                  "unit": {
+                                    "type": "string"
+                                  }
                                 }
                               }
                             },
@@ -1208,10 +2512,18 @@
                               "items": {
                                 "type": "object",
                                 "properties": {
-                                  "complaintName": { "type": "string" },
-                                  "since": { "type": "string" },
-                                  "severity": { "type": "string" },
-                                  "notes": { "type": "string" }
+                                  "complaintName": {
+                                    "type": "string"
+                                  },
+                                  "since": {
+                                    "type": "string"
+                                  },
+                                  "severity": {
+                                    "type": "string"
+                                  },
+                                  "notes": {
+                                    "type": "string"
+                                  }
                                 }
                               }
                             },
@@ -1220,9 +2532,16 @@
                               "items": {
                                 "type": "object",
                                 "properties": {
-                                  "procedureName": { "type": "string" },
-                                  "procedureDate": { "type": "string", "format": "date" },
-                                  "notes": { "type": "string" }
+                                  "procedureName": {
+                                    "type": "string"
+                                  },
+                                  "procedureDate": {
+                                    "type": "string",
+                                    "format": "date"
+                                  },
+                                  "notes": {
+                                    "type": "string"
+                                  }
                                 }
                               }
                             },
@@ -1232,10 +2551,18 @@
                               "items": {
                                 "type": "object",
                                 "properties": {
-                                  "name": { "type": "string" },
-                                  "value": { "type": "string" },
-                                  "unit": { "type": "string" },
-                                  "referenceRange": { "type": "string" }
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "value": {
+                                    "type": "string"
+                                  },
+                                  "unit": {
+                                    "type": "string"
+                                  },
+                                  "referenceRange": {
+                                    "type": "string"
+                                  }
                                 }
                               }
                             },
@@ -1245,30 +2572,69 @@
                               "items": {
                                 "type": "object",
                                 "properties": {
-                                  "vaccineName": { "type": "string" },
-                                  "vaccineId": { "type": "string" },
-                                  "doseId": { "type": "string" },
-                                  "administeredDate": { "type": "string", "format": "date" },
-                                  "batchNumber": { "type": "string" },
-                                  "manufacturer": { "type": "string" }
+                                  "vaccineName": {
+                                    "type": "string"
+                                  },
+                                  "vaccineId": {
+                                    "type": "string"
+                                  },
+                                  "doseId": {
+                                    "type": "string"
+                                  },
+                                  "administeredDate": {
+                                    "type": "string",
+                                    "format": "date"
+                                  },
+                                  "batchNumber": {
+                                    "type": "string"
+                                  },
+                                  "manufacturer": {
+                                    "type": "string"
+                                  }
                                 }
                               }
                             },
-                            "admissionDate": { "type": "string", "format": "date-time", "description": "For DischargeSummary" },
-                            "dischargeDate": { "type": "string", "format": "date-time", "description": "For DischargeSummary" },
-                            "invoiceNumber": { "type": "string", "description": "For Invoice" },
-                            "invoiceDate": { "type": "string", "format": "date", "description": "For Invoice" },
-                            "totalAmount": { "type": "number", "description": "For Invoice" },
+                            "admissionDate": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "For DischargeSummary"
+                            },
+                            "dischargeDate": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "For DischargeSummary"
+                            },
+                            "invoiceNumber": {
+                              "type": "string",
+                              "description": "For Invoice"
+                            },
+                            "invoiceDate": {
+                              "type": "string",
+                              "format": "date",
+                              "description": "For Invoice"
+                            },
+                            "totalAmount": {
+                              "type": "number",
+                              "description": "For Invoice"
+                            },
                             "items": {
                               "type": "array",
                               "description": "For Invoice",
                               "items": {
                                 "type": "object",
                                 "properties": {
-                                  "description": { "type": "string" },
-                                  "quantity": { "type": "number" },
-                                  "unitPrice": { "type": "number" },
-                                  "amount": { "type": "number" }
+                                  "description": {
+                                    "type": "string"
+                                  },
+                                  "quantity": {
+                                    "type": "number"
+                                  },
+                                  "unitPrice": {
+                                    "type": "number"
+                                  },
+                                  "amount": {
+                                    "type": "number"
+                                  }
                                 }
                               }
                             },
@@ -1278,11 +2644,22 @@
                               "items": {
                                 "type": "object",
                                 "properties": {
-                                  "name": { "type": "string" },
-                                  "value": { "type": "number" },
-                                  "unit": { "type": "string" },
-                                  "snomedCode": { "type": "string" },
-                                  "recordedAt": { "type": "string", "format": "date" }
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "value": {
+                                    "type": "number"
+                                  },
+                                  "unit": {
+                                    "type": "string"
+                                  },
+                                  "snomedCode": {
+                                    "type": "string"
+                                  },
+                                  "recordedAt": {
+                                    "type": "string",
+                                    "format": "date"
+                                  }
                                 }
                               }
                             },
@@ -1292,26 +2669,487 @@
                               "items": {
                                 "type": "object",
                                 "properties": {
-                                  "title": { "type": "string" },
-                                  "type": { "type": "string" },
-                                  "documentUrl": { "type": "string" },
-                                  "date": { "type": "string", "format": "date" }
+                                  "title": {
+                                    "type": "string"
+                                  },
+                                  "type": {
+                                    "type": "string"
+                                  },
+                                  "documentUrl": {
+                                    "type": "string"
+                                  },
+                                  "date": {
+                                    "type": "string",
+                                    "format": "date"
+                                  }
                                 }
                               }
                             },
                             "followUp": {
                               "type": "object",
                               "properties": {
-                                "date": { "type": "string", "format": "date" },
-                                "mode": { "type": "string" },
-                                "notes": { "type": "string" }
+                                "date": {
+                                  "type": "string",
+                                  "format": "date"
+                                },
+                                "mode": {
+                                  "type": "string"
+                                },
+                                "notes": {
+                                  "type": "string"
+                                }
                               }
                             },
-                            "advice": { "type": "string" }
+                            "advice": {
+                              "type": "string"
+                            }
                           }
                         }
                       }
                     }
+                  }
+                }
+              },
+              "examples": {
+                "Prescription": {
+                  "summary": "Prescription",
+                  "value": {
+                    "abhaAddress": "<string>",
+                    "hipId": "<string>",
+                    "hospitalName": "<string>",
+                    "visitDate": "2024-01-15",
+                    "visitId": "<string>",
+                    "careContexts": [
+                      {
+                        "referenceNumber": "<string>",
+                        "display": "Prescription - 15 Jan 2024",
+                        "hiType": "Prescription",
+                        "bundleData": {
+                          "hospital": {
+                            "name": "<string>",
+                            "id": "<string>",
+                            "phone": "<string>",
+                            "email": "<string>"
+                          },
+                          "doctor": {
+                            "name": "<string>",
+                            "licNumber": "<string>",
+                            "hpId": "<string>"
+                          },
+                          "documentUrl": "<string>",
+                          "diagnosis": [
+                            {
+                              "diagnosisName": "<string>",
+                              "status": "confirmed",
+                              "icdCode": "<string>"
+                            }
+                          ],
+                          "medications": [
+                            {
+                              "drugName": "<string>",
+                              "dosage": "<string>",
+                              "frequency": "<string>",
+                              "duration": "<string>",
+                              "instructions": "<string>"
+                            }
+                          ],
+                          "labInvestigations": [
+                            {
+                              "testName": "<string>",
+                              "instructions": "<string>"
+                            }
+                          ],
+                          "advice": "<string>"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "OPConsultation": {
+                  "summary": "OPConsultation",
+                  "value": {
+                    "abhaAddress": "<string>",
+                    "hipId": "<string>",
+                    "hospitalName": "<string>",
+                    "visitDate": "2024-01-15",
+                    "visitId": "<string>",
+                    "careContexts": [
+                      {
+                        "referenceNumber": "<string>",
+                        "display": "OPD Consultation - 15 Jan 2024",
+                        "hiType": "OPConsultation",
+                        "bundleData": {
+                          "hospital": {
+                            "name": "<string>",
+                            "id": "<string>",
+                            "phone": "<string>",
+                            "email": "<string>"
+                          },
+                          "doctor": {
+                            "name": "<string>",
+                            "licNumber": "<string>",
+                            "hpId": "<string>"
+                          },
+                          "documentUrl": "<string>",
+                          "complaints": [
+                            {
+                              "complaintName": "<string>",
+                              "since": "<string>",
+                              "severity": "<string>",
+                              "notes": "<string>"
+                            }
+                          ],
+                          "diagnosis": [
+                            {
+                              "diagnosisName": "<string>",
+                              "status": "confirmed",
+                              "icdCode": "<string>",
+                              "since": "<string>",
+                              "notes": "<string>"
+                            }
+                          ],
+                          "medications": [
+                            {
+                              "drugName": "<string>",
+                              "dosage": "<string>",
+                              "frequency": "<string>",
+                              "duration": "<string>",
+                              "instructions": "<string>"
+                            }
+                          ],
+                          "procedures": [
+                            {
+                              "procedureName": "<string>",
+                              "procedureDate": "2024-01-15",
+                              "notes": "<string>"
+                            }
+                          ],
+                          "vitals": [
+                            {
+                              "name": "<string>",
+                              "value": 0,
+                              "unit": "<string>"
+                            }
+                          ],
+                          "followUp": {
+                            "date": "2024-02-15",
+                            "mode": "<string>",
+                            "notes": "<string>"
+                          },
+                          "advice": "<string>"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "DiagnosticReport": {
+                  "summary": "DiagnosticReport",
+                  "value": {
+                    "abhaAddress": "<string>",
+                    "hipId": "<string>",
+                    "hospitalName": "<string>",
+                    "visitDate": "2024-01-15",
+                    "visitId": "<string>",
+                    "careContexts": [
+                      {
+                        "referenceNumber": "<string>",
+                        "display": "Diagnostic Report - 15 Jan 2024",
+                        "hiType": "DiagnosticReport",
+                        "bundleData": {
+                          "hospital": {
+                            "name": "<string>",
+                            "id": "<string>",
+                            "phone": "<string>",
+                            "email": "<string>"
+                          },
+                          "doctor": {
+                            "name": "<string>",
+                            "licNumber": "<string>",
+                            "hpId": "<string>"
+                          },
+                          "documentUrl": "<string>",
+                          "reportType": "<string>",
+                          "reportName": "<string>",
+                          "reportCode": "<string>",
+                          "reportDate": "2024-01-15",
+                          "status": "final",
+                          "specimen": {
+                            "collectedDate": "2024-01-15",
+                            "type": "<string>"
+                          },
+                          "results": [
+                            {
+                              "name": "<string>",
+                              "value": "<string>",
+                              "unit": "<string>",
+                              "referenceRange": "<string>"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                "ImmunizationRecord": {
+                  "summary": "ImmunizationRecord",
+                  "value": {
+                    "abhaAddress": "<string>",
+                    "hipId": "<string>",
+                    "hospitalName": "<string>",
+                    "visitDate": "2024-01-15",
+                    "visitId": "<string>",
+                    "careContexts": [
+                      {
+                        "referenceNumber": "<string>",
+                        "display": "Vaccination - 15 Jan 2024",
+                        "hiType": "ImmunizationRecord",
+                        "bundleData": {
+                          "hospital": {
+                            "name": "<string>",
+                            "id": "<string>",
+                            "phone": "<string>",
+                            "email": "<string>"
+                          },
+                          "doctor": {
+                            "name": "<string>",
+                            "licNumber": "<string>",
+                            "hpId": "<string>"
+                          },
+                          "documentUrl": "<string>",
+                          "immunizations": [
+                            {
+                              "vaccineName": "<string>",
+                              "vaccineId": "<string>",
+                              "doseId": "<string>",
+                              "administeredDate": "2024-01-15",
+                              "batchNumber": "<string>",
+                              "manufacturer": "<string>",
+                              "scheduleType": "<string>"
+                            }
+                          ],
+                          "nextRecommendations": [
+                            {
+                              "vaccineName": "<string>",
+                              "vaccineId": "<string>",
+                              "dueDate": "2024-03-15"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                "HealthDocumentRecord": {
+                  "summary": "HealthDocumentRecord",
+                  "value": {
+                    "abhaAddress": "<string>",
+                    "hipId": "<string>",
+                    "hospitalName": "<string>",
+                    "visitDate": "2024-01-15",
+                    "visitId": "<string>",
+                    "careContexts": [
+                      {
+                        "referenceNumber": "<string>",
+                        "display": "Health Document - 15 Jan 2024",
+                        "hiType": "HealthDocumentRecord",
+                        "bundleData": {
+                          "hospital": {
+                            "name": "<string>",
+                            "id": "<string>",
+                            "phone": "<string>",
+                            "email": "<string>"
+                          },
+                          "doctor": {
+                            "name": "<string>",
+                            "licNumber": "<string>",
+                            "hpId": "<string>"
+                          },
+                          "documentUrl": "<string>",
+                          "documents": [
+                            {
+                              "title": "<string>",
+                              "type": "<string>",
+                              "documentUrl": "<string>",
+                              "date": "2024-01-15"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                "DischargeSummary": {
+                  "summary": "DischargeSummary",
+                  "value": {
+                    "abhaAddress": "<string>",
+                    "hipId": "<string>",
+                    "hospitalName": "<string>",
+                    "visitDate": "2024-01-15",
+                    "visitId": "<string>",
+                    "careContexts": [
+                      {
+                        "referenceNumber": "<string>",
+                        "display": "Discharge Summary - 15 Jan 2024",
+                        "hiType": "DischargeSummary",
+                        "bundleData": {
+                          "hospital": {
+                            "name": "<string>",
+                            "id": "<string>",
+                            "phone": "<string>",
+                            "email": "<string>"
+                          },
+                          "doctor": {
+                            "name": "<string>",
+                            "licNumber": "<string>",
+                            "hpId": "<string>"
+                          },
+                          "documentUrl": "<string>",
+                          "admissionDate": "2024-01-05T10:00:00Z",
+                          "dischargeDate": "2024-01-15T11:00:00Z",
+                          "complaints": [
+                            {
+                              "complaintName": "<string>",
+                              "since": "<string>",
+                              "severity": "<string>",
+                              "notes": "<string>"
+                            }
+                          ],
+                          "diagnosis": [
+                            {
+                              "diagnosisName": "<string>",
+                              "status": "confirmed",
+                              "icdCode": "<string>",
+                              "notes": "<string>"
+                            }
+                          ],
+                          "procedures": [
+                            {
+                              "procedureName": "<string>",
+                              "procedureDate": "2024-01-05",
+                              "notes": "<string>"
+                            }
+                          ],
+                          "medications": [
+                            {
+                              "drugName": "<string>",
+                              "dosage": "<string>",
+                              "frequency": "<string>",
+                              "duration": "<string>",
+                              "instructions": "<string>"
+                            }
+                          ],
+                          "investigations": [
+                            {
+                              "name": "<string>",
+                              "result": "<string>",
+                              "value": "<string>",
+                              "unit": "<string>"
+                            }
+                          ],
+                          "followUp": {
+                            "date": "2024-01-22",
+                            "mode": "<string>",
+                            "notes": "<string>"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                "Invoice": {
+                  "summary": "Invoice",
+                  "value": {
+                    "abhaAddress": "<string>",
+                    "hipId": "<string>",
+                    "hospitalName": "<string>",
+                    "visitDate": "2024-01-15",
+                    "visitId": "<string>",
+                    "careContexts": [
+                      {
+                        "referenceNumber": "<string>",
+                        "display": "Hospital Invoice - 15 Jan 2024",
+                        "hiType": "Invoice",
+                        "bundleData": {
+                          "hospital": {
+                            "name": "<string>",
+                            "id": "<string>",
+                            "phone": "<string>",
+                            "email": "<string>"
+                          },
+                          "doctor": {
+                            "name": "<string>",
+                            "licNumber": "<string>",
+                            "hpId": "<string>"
+                          },
+                          "documentUrl": "<string>",
+                          "invoiceType": "<string>",
+                          "invoiceNumber": "<string>",
+                          "invoiceDate": "2024-01-15",
+                          "status": "issued",
+                          "items": [
+                            {
+                              "description": "<string>",
+                              "quantity": 1,
+                              "unitPrice": 0,
+                              "amount": 0
+                            }
+                          ],
+                          "subtotal": 0,
+                          "tax": 0,
+                          "totalAmount": 0,
+                          "currency": "INR"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "WellnessRecord": {
+                  "summary": "WellnessRecord",
+                  "value": {
+                    "abhaAddress": "<string>",
+                    "hipId": "<string>",
+                    "hospitalName": "<string>",
+                    "visitDate": "2024-01-15",
+                    "visitId": "<string>",
+                    "careContexts": [
+                      {
+                        "referenceNumber": "<string>",
+                        "display": "Wellness Check - 15 Jan 2024",
+                        "hiType": "WellnessRecord",
+                        "bundleData": {
+                          "hospital": {
+                            "name": "<string>",
+                            "id": "<string>",
+                            "phone": "<string>",
+                            "email": "<string>"
+                          },
+                          "doctor": {
+                            "name": "<string>",
+                            "licNumber": "<string>",
+                            "hpId": "<string>"
+                          },
+                          "documentUrl": "<string>",
+                          "vitals": [
+                            {
+                              "name": "<string>",
+                              "value": 0,
+                              "unit": "<string>",
+                              "snomedCode": "<string>",
+                              "recordedAt": "2024-01-15"
+                            }
+                          ],
+                          "bodyMeasurements": [
+                            {
+                              "name": "<string>",
+                              "value": 0,
+                              "unit": "<string>",
+                              "snomedCode": "<string>",
+                              "recordedAt": "2024-01-15"
+                            }
+                          ]
+                        }
+                      }
+                    ]
                   }
                 }
               }
@@ -1319,13 +3157,41 @@
           }
         },
         "responses": {
-          "200": { "description": "Care context linked successfully" }
+          "200": {
+            "description": "Care context linked successfully"
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "429": {
+            "$ref": "#/components/responses/429"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
+          }
         }
       }
     },
     "/api/abdm/consent/request": {
       "post": {
-        "tags": ["M3 - Consent"],
+        "tags": [
+          "M3 - Consent"
+        ],
         "summary": "Initiate Consent Request",
         "description": "Send a consent request to the patient to access their health records from HIPs.",
         "operationId": "initiateConsentRequest",
@@ -1335,23 +3201,75 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["patientHealthId", "hiuId", "patientId", "doctorId", "doctorName", "purpose", "dateFrom", "dateTo", "recordTypes"],
+                "required": [
+                  "patientHealthId",
+                  "hiuId",
+                  "patientId",
+                  "doctorId",
+                  "doctorName",
+                  "purpose",
+                  "dateFrom",
+                  "dateTo",
+                  "recordTypes"
+                ],
                 "properties": {
-                  "patientHealthId": { "type": "string", "description": "ABHA address of the patient", "example": "patient@sbx" },
-                  "hiuId": { "type": "string", "description": "HIU facility ID", "example": "HIU001" },
-                  "patientId": { "type": "string", "description": "Internal patient ID", "example": "PAT-001" },
-                  "doctorId": { "type": "string", "description": "Doctor registration ID", "example": "DOC-001" },
-                  "doctorName": { "type": "string", "example": "Dr. John Smith" },
-                  "purpose": { "type": "string", "example": "Care management" },
-                  "dateFrom": { "type": "string", "format": "date-time", "example": "2025-01-01T00:00:00Z" },
-                  "dateTo": { "type": "string", "format": "date-time", "example": "2026-03-23T23:59:59Z" },
+                  "patientHealthId": {
+                    "type": "string",
+                    "description": "ABHA address of the patient",
+                    "example": "<string>"
+                  },
+                  "hiuId": {
+                    "type": "string",
+                    "description": "HIU facility ID",
+                    "example": "<string>"
+                  },
+                  "patientId": {
+                    "type": "string",
+                    "description": "Internal patient ID",
+                    "example": "<string>"
+                  },
+                  "doctorId": {
+                    "type": "string",
+                    "description": "Doctor registration ID",
+                    "example": "<string>"
+                  },
+                  "doctorName": {
+                    "type": "string",
+                    "example": "<string>"
+                  },
+                  "purpose": {
+                    "type": "string",
+                    "example": "<string>"
+                  },
+                  "dateFrom": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2025-01-01T00:00:00Z"
+                  },
+                  "dateTo": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2026-03-23T23:59:59Z"
+                  },
                   "recordTypes": {
                     "type": "array",
                     "items": {
                       "type": "string",
-                      "enum": ["Prescription", "DiagnosticReport", "OPConsultation", "HealthDocumentRecord", "WellnessRecord", "Invoice", "DischargeSummary", "ImmunizationRecord"]
+                      "enum": [
+                        "Prescription",
+                        "DiagnosticReport",
+                        "OPConsultation",
+                        "HealthDocumentRecord",
+                        "WellnessRecord",
+                        "Invoice",
+                        "DischargeSummary",
+                        "ImmunizationRecord"
+                      ]
                     },
-                    "example": ["Prescription", "DiagnosticReport"]
+                    "example": [
+                      "Prescription",
+                      "DiagnosticReport"
+                    ]
                   }
                 }
               }
@@ -1366,19 +3284,46 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": { "type": "boolean" },
-                    "consentRequestId": { "type": "string", "format": "uuid" }
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "consentRequestId": {
+                      "type": "string"
+                    }
                   }
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "422": {
+            "$ref": "#/components/responses/422"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
           }
         }
       }
     },
     "/api/abdm/consent/{requestid}/records": {
       "get": {
-        "tags": ["M3 - Consent"],
+        "tags": [
+          "M3 - Consent"
+        ],
         "summary": "Fetch Consented Records",
         "description": "Fetch health records shared by the patient under a given consent request ID.",
         "operationId": "fetchConsentRecords",
@@ -1388,7 +3333,9 @@
             "in": "path",
             "required": true,
             "description": "Consent request UUID from the initiate consent response",
-            "schema": { "type": "string", "format": "uuid" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -1399,13 +3346,17 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "success": { "type": "boolean" },
+                    "success": {
+                      "type": "boolean"
+                    },
                     "records": {
                       "type": "array",
                       "items": {
                         "type": "object",
                         "properties": {
-                          "careContextReference": { "type": "string" },
+                          "careContextReference": {
+                            "type": "string"
+                          },
                           "fhirBundle": {
                             "type": "object",
                             "description": "FHIR R4 Bundle resource containing the health record"
@@ -1417,6 +3368,24 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          },
+          "502": {
+            "$ref": "#/components/responses/502"
+          },
+          "503": {
+            "$ref": "#/components/responses/503"
           }
         }
       }
@@ -1434,13 +3403,21 @@
       "OtpSentResponse": {
         "type": "object",
         "properties": {
-          "success": { "type": "boolean" },
-          "message": { "type": "string" },
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
           "data": {
             "type": "object",
             "properties": {
-              "txnId": { "type": "string", "format": "uuid" },
-              "message": { "type": "string", "example": "OTP sent to mobile number ending with ******7158" }
+              "txnId": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              }
             }
           }
         }
@@ -1448,95 +3425,225 @@
       "AuthTokens": {
         "type": "object",
         "properties": {
-          "token": { "type": "string" },
-          "expiresIn": { "type": "integer", "example": 1800 },
-          "refreshToken": { "type": "string" },
-          "refreshExpiresIn": { "type": "integer", "example": 1296000 }
+          "token": {
+            "type": "string"
+          },
+          "expiresIn": {
+            "type": "integer",
+            "example": 1800
+          },
+          "refreshToken": {
+            "type": "string"
+          },
+          "refreshExpiresIn": {
+            "type": "integer",
+            "example": 1296000
+          }
         }
       },
       "ABHAProfile": {
         "type": "object",
         "properties": {
-          "ABHANumber": { "type": "string", "example": "12-3456-7890-1234" },
-          "preferredAddress": { "type": "string" },
-          "firstName": { "type": "string" },
-          "middleName": { "type": "string" },
-          "lastName": { "type": "string" },
-          "dob": { "type": "string", "example": "01-01-1990" },
-          "gender": { "type": "string", "enum": ["M", "F", "O"] },
-          "photo": { "type": "string", "description": "Base64 encoded profile photo" },
-          "mobile": { "type": "string" },
-          "email": { "type": "string" },
-          "phrAddress": { "type": "array", "items": { "type": "string" } },
-          "address": { "type": "string" },
-          "districtCode": { "type": "string" },
-          "stateCode": { "type": "string" },
-          "pinCode": { "type": "string" },
-          "stateName": { "type": "string" },
-          "districtName": { "type": "string" },
-          "abhaType": { "type": "string", "example": "STANDARD" },
-          "abhaStatus": { "type": "string", "example": "ACTIVE" }
+          "ABHANumber": {
+            "type": "string"
+          },
+          "preferredAddress": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "middleName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "dob": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "M",
+              "F",
+              "O"
+            ]
+          },
+          "photo": {
+            "type": "string",
+            "description": "Base64 encoded profile photo"
+          },
+          "mobile": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phrAddress": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "address": {
+            "type": "string"
+          },
+          "districtCode": {
+            "type": "string"
+          },
+          "stateCode": {
+            "type": "string"
+          },
+          "pinCode": {
+            "type": "string"
+          },
+          "stateName": {
+            "type": "string"
+          },
+          "districtName": {
+            "type": "string"
+          },
+          "abhaType": {
+            "type": "string"
+          },
+          "abhaStatus": {
+            "type": "string"
+          }
         }
       },
       "FullABHAProfile": {
         "type": "object",
         "properties": {
-          "ABHANumber": { "type": "string" },
-          "preferredAbhaAddress": { "type": "string" },
-          "mobile": { "type": "string" },
-          "firstName": { "type": "string" },
-          "lastName": { "type": "string" },
-          "gender": { "type": "string" },
-          "status": { "type": "string", "example": "ACTIVE" },
-          "stateCode": { "type": "string" },
-          "districtCode": { "type": "string" },
-          "pincode": { "type": "string" },
-          "address": { "type": "string" },
-          "kycVerified": { "type": "boolean" },
-          "verificationStatus": { "type": "string", "example": "VERIFIED" },
-          "authMethods": { "type": "array", "items": { "type": "string" } }
+          "ABHANumber": {
+            "type": "string"
+          },
+          "preferredAbhaAddress": {
+            "type": "string"
+          },
+          "mobile": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "stateCode": {
+            "type": "string"
+          },
+          "districtCode": {
+            "type": "string"
+          },
+          "pincode": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "kycVerified": {
+            "type": "boolean"
+          },
+          "verificationStatus": {
+            "type": "string"
+          },
+          "authMethods": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
         }
       },
       "AccountSummary": {
         "type": "object",
         "properties": {
-          "ABHANumber": { "type": "string" },
-          "preferredAbhaAddress": { "type": "string" },
-          "name": { "type": "string" },
-          "gender": { "type": "string" },
-          "dob": { "type": "string" },
-          "status": { "type": "string" },
-          "profilePhoto": { "type": "string" },
-          "kycVerified": { "type": "boolean" },
-          "mobileVerified": { "type": "boolean" }
+          "ABHANumber": {
+            "type": "string"
+          },
+          "preferredAbhaAddress": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string"
+          },
+          "dob": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "profilePhoto": {
+            "type": "string"
+          },
+          "kycVerified": {
+            "type": "boolean"
+          },
+          "mobileVerified": {
+            "type": "boolean"
+          }
         }
       },
       "AbhaAddressVerifyResponse": {
         "type": "object",
         "properties": {
-          "success": { "type": "boolean" },
-          "message": { "type": "string" },
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
           "data": {
             "type": "object",
             "properties": {
-              "txnId": { "type": "string" },
-              "message": { "type": "string" },
-              "authResult": { "type": "string" },
+              "txnId": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "authResult": {
+                "type": "string"
+              },
               "users": {
                 "type": "array",
                 "items": {
                   "type": "object",
                   "properties": {
-                    "abhaAddress": { "type": "string" },
-                    "fullName": { "type": "string" },
-                    "abhaNumber": { "type": "string" },
-                    "status": { "type": "string" },
-                    "kycStatus": { "type": "string" },
-                    "age": { "type": "integer" }
+                    "abhaAddress": {
+                      "type": "string"
+                    },
+                    "fullName": {
+                      "type": "string"
+                    },
+                    "abhaNumber": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "kycStatus": {
+                      "type": "string"
+                    },
+                    "age": {
+                      "type": "integer"
+                    }
                   }
                 }
               },
-              "tokens": { "$ref": "#/components/schemas/AuthTokens" }
+              "tokens": {
+                "$ref": "#/components/schemas/AuthTokens"
+              }
             }
           }
         }
@@ -1544,22 +3651,239 @@
       "AbhaAddressProfile": {
         "type": "object",
         "properties": {
-          "abhaAddress": { "type": "string" },
-          "fullName": { "type": "string" },
-          "profilePhoto": { "type": "string" },
-          "firstName": { "type": "string" },
-          "lastName": { "type": "string" },
-          "dateOfBirth": { "type": "string" },
-          "gender": { "type": "string" },
-          "mobile": { "type": "string" },
-          "abhaNumber": { "type": "string" },
-          "address": { "type": "string" },
-          "stateName": { "type": "string" },
-          "districtName": { "type": "string" },
-          "pinCode": { "type": "string" },
-          "authMethods": { "type": "array", "items": { "type": "string" } },
-          "status": { "type": "string" },
-          "kycStatus": { "type": "string" }
+          "abhaAddress": {
+            "type": "string"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "profilePhoto": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "dateOfBirth": {
+            "type": "string"
+          },
+          "gender": {
+            "type": "string"
+          },
+          "mobile": {
+            "type": "string"
+          },
+          "abhaNumber": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "stateName": {
+            "type": "string"
+          },
+          "districtName": {
+            "type": "string"
+          },
+          "pinCode": {
+            "type": "string"
+          },
+          "authMethods": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": {
+            "type": "string"
+          },
+          "kycStatus": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "responses": {
+      "400": {
+        "description": "Bad request \u2014 missing or invalid parameters",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Valid 12-digit Aadhaar number is required"
+                }
+              }
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Unauthorized \u2014 missing or invalid token/API key",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Authorization token is missing or malformed."
+                }
+              }
+            }
+          }
+        }
+      },
+      "403": {
+        "description": "Forbidden \u2014 key revoked, suspended, or not allowed on this endpoint",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "API key has been revoked"
+                }
+              }
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Not found \u2014 resource does not exist",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Resource not found"
+                }
+              }
+            }
+          }
+        }
+      },
+      "422": {
+        "description": "Unprocessable \u2014 invalid or expired OTP / ABDM validation error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Invalid or expired OTP"
+                }
+              }
+            }
+          }
+        }
+      },
+      "429": {
+        "description": "Too many requests \u2014 rate limit exceeded",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Too many requests. Please try again later."
+                }
+              }
+            }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal server error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Internal Server Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "502": {
+        "description": "Bad gateway \u2014 ABHA server error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "ABHA server error. Please try again later."
+                }
+              }
+            }
+          }
+        }
+      },
+      "503": {
+        "description": "Service unavailable \u2014 network error reaching ABDM",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Network error. Please check your connection."
+                }
+              }
+            }
+          }
         }
       }
     }
