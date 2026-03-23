@@ -1,13 +1,14 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "ABDM API Docs",
   "colors": {
     "primary": "#16A34A",
     "light": "#07C983",
     "dark": "#15803D"
   },
   "favicon": "/favicon.svg",
+  "openapi": "api-reference/openapi.json",
   "navigation": {
     "tabs": [
       {
@@ -20,49 +21,112 @@
               "quickstart",
               "development"
             ]
-          },
-          {
-            "group": "Customization",
-            "pages": [
-              "essentials/settings",
-              "essentials/navigation"
-            ]
-          },
-          {
-            "group": "Writing content",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
-            ]
           }
         ]
       },
       {
-        "tab": "API reference",
+        "tab": "API Reference",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "Introduction",
             "pages": [
               "api-reference/introduction"
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Authentication",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "api-reference/abdm/auth/generate-token"
+            ]
+          },
+          {
+            "group": "M1 — Aadhaar Enrollment",
+            "pages": [
+              "api-reference/abdm/m1/aadhaar-enrollment/send-otp",
+              "api-reference/abdm/m1/aadhaar-enrollment/verify-otp",
+              "api-reference/abdm/m1/aadhaar-enrollment/abha-suggestion",
+              "api-reference/abdm/m1/aadhaar-enrollment/create-abha-address",
+              "api-reference/abdm/m1/aadhaar-enrollment/email-verification"
+            ]
+          },
+          {
+            "group": "M1 — Profile",
+            "pages": [
+              "api-reference/abdm/m1/profile/get-profile",
+              "api-reference/abdm/m1/profile/download-card",
+              "api-reference/abdm/m1/profile/qr-code"
+            ]
+          },
+          {
+            "group": "M1 — Mobile Login",
+            "pages": [
+              "api-reference/abdm/m1/mobile-login/send-otp",
+              "api-reference/abdm/m1/mobile-login/verify-otp",
+              "api-reference/abdm/m1/mobile-login/verify-user"
+            ]
+          },
+          {
+            "group": "M1 — ABHA Number Login (Aadhaar OTP)",
+            "pages": [
+              "api-reference/abdm/m1/abha-number-aadhaar/send-otp",
+              "api-reference/abdm/m1/abha-number-aadhaar/verify-otp"
+            ]
+          },
+          {
+            "group": "M1 — ABHA Number Login (Mobile OTP)",
+            "pages": [
+              "api-reference/abdm/m1/abha-number-mobile/send-otp",
+              "api-reference/abdm/m1/abha-number-mobile/verify-otp"
+            ]
+          },
+          {
+            "group": "M1 — Aadhaar Number Login",
+            "pages": [
+              "api-reference/abdm/m1/aadhaar-number-login/send-otp",
+              "api-reference/abdm/m1/aadhaar-number-login/verify-otp"
+            ]
+          },
+          {
+            "group": "M1 — ABHA Address Login (Aadhaar OTP)",
+            "pages": [
+              "api-reference/abdm/m1/abha-address-aadhaar/send-otp",
+              "api-reference/abdm/m1/abha-address-aadhaar/verify-otp",
+              "api-reference/abdm/m1/abha-address-aadhaar/fetch-profile"
+            ]
+          },
+          {
+            "group": "M1 — ABHA Address Login (Mobile OTP)",
+            "pages": [
+              "api-reference/abdm/m1/abha-address-mobile/send-otp",
+              "api-reference/abdm/m1/abha-address-mobile/verify-otp"
+            ]
+          },
+          {
+            "group": "M1 — Search ABHA",
+            "pages": [
+              "api-reference/abdm/m1/search/search-abha",
+              "api-reference/abdm/m1/search/send-otp",
+              "api-reference/abdm/m1/search/verify-otp"
+            ]
+          },
+          {
+            "group": "M2 — Deep Link",
+            "pages": [
+              "api-reference/abdm/m2/deep-link"
+            ]
+          },
+          {
+            "group": "M2 — Link CareContext",
+            "pages": [
+              "api-reference/abdm/m2/token-generate",
+              "api-reference/abdm/m2/link-carecontext"
+            ]
+          },
+          {
+            "group": "M3 — Consent",
+            "pages": [
+              "api-reference/abdm/m3/consent-request",
+              "api-reference/abdm/m3/consent-records"
             ]
           }
         ]
@@ -74,11 +138,6 @@
           "anchor": "Documentation",
           "href": "https://mintlify.com/docs",
           "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
         }
       ]
     }
@@ -93,30 +152,12 @@
         "label": "Support",
         "href": "mailto:hi@mintlify.com"
       }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
-  },
-  "contextual": {
-    "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+    ]
   },
   "footer": {
     "socials": {
       "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "github": "https://github.com/mintlify"
     }
   }
 }

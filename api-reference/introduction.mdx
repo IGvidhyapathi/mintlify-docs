@@ -1,33 +1,43 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: 'ABDM API Reference'
+description: 'Complete API reference for Ayushman Bharat Digital Mission (ABDM) — ABHA APIs'
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+## Overview
 
-## Welcome
+These APIs power the **ABHA (Ayushman Bharat Health Account)** system — India's national digital health identity. Use them to:
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
-
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+- **Enroll** patients and create ABHA accounts via Aadhaar
+- **Login** using multiple authentication methods (mobile OTP, Aadhaar OTP, ABHA number, ABHA address)
+- **Link health records** (care contexts) to a patient's ABHA
+- **Manage consent** and retrieve shared health records
 
 ## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+All endpoints except `Generate JWT Token` require a Bearer token.
+
+**Step 1** — Call `/api/m1/abha/token` with your API key to get a JWT:
 
 ```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
+{
+  "apiKey": "your-api-key-here"
+}
 ```
+
+**Step 2** — Pass the token in all subsequent requests:
+
+```
+Authorization: Bearer <your-jwt-token>
+```
+
+## Base URL
+
+Replace `https://your-abdm-server.com` in the API playground with your actual ABDM server URL before testing.
+
+## API Modules
+
+| Module | Description |
+|--------|-------------|
+| **M1** | ABHA enrollment, login, and profile management |
+| **M2** | Care context linking — attach health records to ABHA |
+| **M3** | Consent management — request and fetch health records |
