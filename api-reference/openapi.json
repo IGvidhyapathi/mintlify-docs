@@ -7,12 +7,12 @@
   },
   "servers": [
     {
-      "url": "https://abdm.dev.unimetacare.com",
-      "description": "Development"
-    },
-    {
       "url": "https://abdm.unimetacare.com",
       "description": "Production"
+    },
+    {
+      "url": "https://abdm.dev.unimetacare.com",
+      "description": "Development"
     }
   ],
   "security": [
