@@ -3721,6 +3721,10 @@
                   "type": "string",
                   "example": "Valid 12-digit Aadhaar number is required"
                 }
+              },
+              "example": {
+                "status": false,
+                "message": "Valid 12-digit Aadhaar number is required"
               }
             }
           }
