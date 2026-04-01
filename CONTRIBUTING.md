@@ -2,7 +2,7 @@
 
 # Contribute to the documentation
 
-Thank you for your interest in contributing to our documentation! This guide will help you get started.
+Thank you for your interest in contributing to our documentation. This guide will help you get started.
 
 ## How to contribute
 
@@ -15,14 +15,12 @@ Thank you for your interest in contributing to our documentation! This guide wil
 ### Option 2: Local development
 
 1. Fork and clone this repository
-2. Install the Mintlify CLI: `npm i -g mint`
+2. Install the docs preview CLI: `npm i -g mint`
 3. Create a branch for your changes
 4. Make changes
-5. Navigate to the docs directory and run `mint dev`
-6. Preview your changes at `http://localhost:3000`
+5. From the repository root, run `mint dev`
+6. Preview your changes at the URL shown in the terminal (often `http://localhost:3000`)
 7. Commit your changes and submit a pull request
-
-For more details on local development, see our [development guide](development.mdx).
 
 ## Writing guidelines
 
